@@ -1,0 +1,41 @@
+<link rel="import"
+      href="bower_components/polymer/polymer.html">
+<link rel="import"
+      href="bower_components/paper-input/paper-input.html">
+<link rel="import"
+      href="bower_components/paper-button/paper-button.html">
+
+<dom-module id="sevenguis-temperature">
+  <template>
+
+    <paper-input type="number" value="{{celsius}}"></paper-input> celsius <br>
+    <paper-input type="number" value="{{fahrenheit}}"></paper-input> fahrenheit
+
+  </template>
+  
+  <script>
+    Polymer({
+      is: "sevenguis-temperature",
+      
+      properties: {
+        celsius: Number,
+        fahrenheit: {
+          type: Number,
+          computed: "computeFahrenheit(celsius)"
+        }
+      },
+      
+      ready: function() {
+        this.celsius = 100
+      },
+      
+      computeFahrenheit: function(celsius) {
+        return (celsius * (9 / 5)) + 32
+      },
+      
+      computeCelsius: function(fahrenheit) {
+        return (fahrenheit - 32) * (5 / 9)
+      }
+    });
+  </script>
+</dom-module>
