@@ -9,7 +9,8 @@
   <template>
 
     <paper-input type="number" value="{{celsius}}"></paper-input> celsius <br>
-    <paper-input type="number" value="{{fahrenheit}}"></paper-input> fahrenheit
+    <paper-input type="number" value="{{computeKelvin(celsius)}}" on-change="kelvinChanged"></paper-input> kelvin <br>
+    <paper-input type="number" value="{{computeFahrenheit(celsius)}}" on-change="fahrenheitChanged"></paper-input> fahrenheit
 
   </template>
   
@@ -18,23 +19,27 @@
       is: "sevenguis-temperature",
       
       properties: {
-        celsius: Number,
-        fahrenheit: {
-          type: Number,
-          computed: "computeFahrenheit(celsius)"
-        }
+        celsius: Number
       },
       
       ready: function() {
         this.celsius = 100
       },
       
-      computeFahrenheit: function(celsius) {
-        return (celsius * (9 / 5)) + 32
+      kelvinChanged: function(event){
+        this.celsius = event.target.value - 273.15
       },
       
-      computeCelsius: function(fahrenheit) {
-        return (fahrenheit - 32) * (5 / 9)
+      fahrenheitChanged: function(event){
+        this.celsius = (event.target.value - 32) * (5/9)
+      },
+      
+      computeFahrenheit: function(celsius) {
+        return (Number(celsius) * (9 / 5)) + 32
+      },
+      
+      computeKelvin: function(celsius) {
+        return Number(celsius) + 273.15
       }
     });
   </script>
