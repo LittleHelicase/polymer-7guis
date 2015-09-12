@@ -1,0 +1,56 @@
+<link rel="import"
+      href="bower_components/polymer/polymer.html">
+<link rel="import"
+      href="bower_components/paper-progress/paper-progress.html">
+<link rel="import"
+      href="bower_components/paper-slider/paper-slider.html">
+<link rel="import"
+      href="bower_components/paper-button/paper-button.html">
+<script src="bower_components/moment/min/moment.min.js"></script>
+
+<dom-module id="sevenguis-timer">
+  <template>
+    <div><span>{{elapsedTime(elapsed,duration)}}</span> ms</div>
+    <paper-slider min="100" max="20000" immediate-value="{{duration}}"></paper-slider>
+    <paper-button raised on-click="reset">Start Timer!</paper-button>
+    <paper-progress value="{{progress(elapsed,duration)}}"></paper-input>
+  </template>
+  
+  <script>
+    Polymer({
+      is: "sevenguis-timer",
+      
+      properties: {
+        beginTime: {
+          type: Object,
+          value: null
+        },
+        duration: {
+          type: Number,
+          value: 1000
+        },
+        elapsed: Number
+      },
+      
+      reset: function(){
+        this.beginTime = moment()
+        var intervalTime = 20
+        var intervalCounter = 0
+        that = this
+        clearInterval(this.lastInterval)
+        this.lastInterval = setInterval(function(){
+          intervalCounter++;
+          that.elapsed = intervalCounter * intervalTime
+        }, intervalTime);
+      },
+      
+      elapsedTime: function(elapsed, duration){
+        return (elapsed > duration) ? duration : elapsed;
+      },
+      
+      progress: function(elapsed, duration){
+        return elapsed / duration * 100
+      }
+    });
+  </script>
+</dom-module>
