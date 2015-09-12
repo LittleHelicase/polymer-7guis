@@ -1,0 +1,87 @@
+<link rel="import"
+      href="bower_components/polymer/polymer.html">
+<link rel="import"
+      href="bower_components/paper-input/paper-input.html">
+<link rel="import"
+      href="bower_components/paper-button/paper-button.html">
+<link rel="import"
+      href="bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import"
+      href="bower_components/paper-menu/paper-menu.html">
+<link rel="import"
+      href="bower_components/paper-item/paper-item.html">
+<script src="bower_components/moment/min/moment.min.js"></script>
+
+<dom-module id="sevenguis-flight-booker">
+  <template>
+    <paper-dropdown-menu>
+      <paper-menu class="dropdown-content" selected="{{flightType}}">
+        <paper-item>one-way flight</paper-item>
+        <paper-item>return flight</paper-item>
+      </paper-menu>
+    </paper-dropdown-menu>
+    <paper-input id="start" type="date" value="{{startDate}}"></paper-input> Start Date
+    <paper-input id="return" type="date" value="{{returnDate}}"></paper-input> Return Date
+    <paper-button id="book" raised on-click="book" disabled>Book!</paper-button>
+  </template>
+  
+  <script>
+    Polymer({
+      is: "sevenguis-flight-booker",
+      
+      properties: {
+        startDate: {
+          type: String,
+          observer: "validate"
+        },
+        returnDate: {
+          type: String,
+          observer: "validate"
+        },
+        flightType: {
+          type: String,
+          observer: "validate"
+        }
+      },
+      
+      validate: function(){
+        if(this.validateType() && this.validateStart() && this.validateReturn()){
+          this.$.book.disabled = false;
+        } else {
+          this.$.book.disabled = true;
+        }
+      },
+      
+      validateType: function(){
+        if(this.flightType == 0){
+          this.$.return.disabled = true;
+        } else if(this.flightType == 1){
+          this.$.return.disabled = false;
+        } else {
+          return false;
+        }
+        return true;
+      },
+      
+      validateStart: function(){
+        if(this.startDate === ""){
+          return false
+        } else {
+          return true
+        }
+      },
+      
+      validateReturn: function(){
+        if(this.$.return.disabled){
+          return true
+        } else if(this.returnDate === ""){
+          return false
+        } else {
+          var startDate = moment(this.startDate, "YYYY-MM-DD")
+          var returnDate = moment(this.returnDate, "YYYY-MM-DD")
+          return startDate.isBefore(returnDate)
+        }
+      }
+    });
+  </script>
+</dom-module>
