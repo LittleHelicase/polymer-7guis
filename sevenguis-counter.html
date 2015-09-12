@@ -7,21 +7,22 @@
 
 <dom-module id="sevenguis-counter">
   <template>
-    <paper-input label="Counter Value" type="number" value="{{counterValue}}"></paper-input>
+    <paper-input type="number" value="{{counterValue}}"></paper-input>
     <paper-button raised on-click="increase">Count!</paper-button>
     <div>{{counterValue}}</div>
   </template>
   
   <script>
-    // register a new element called proto-element
     Polymer({
       is: "sevenguis-counter",
+      
       properties: {
         counterValue: {
           type: Number,
           value: 0
         }
       },
+      
       increase: function(){
         this.counterValue++;
       }
