@@ -1,0 +1,22 @@
+{
+  "name": "polymer-7guis",
+  "version": "0.0.0",
+  "homepage": "https://github.com/LittleHelicase/polymer-7guis",
+  "authors": [
+    "Maximilian Klein <dasmaxl@gmail.com>"
+  ],
+  "keywords": [
+    "7guis"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.0.0"
+  }
+}
