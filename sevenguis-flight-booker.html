@@ -15,7 +15,7 @@
 <dom-module id="sevenguis-flight-booker">
   <template>
     <paper-dropdown-menu>
-      <paper-menu class="dropdown-content" selected="{{flightType}}">
+      <paper-menu class="dropdown-content" selected="{{flightType}}" selected-item="{{flightItem}}">
         <paper-item>one-way flight</paper-item>
         <paper-item>return flight</paper-item>
       </paper-menu>
@@ -41,7 +41,15 @@
         flightType: {
           type: String,
           observer: "validate"
+        },
+        flightItem: {
+          type: Object
         }
+      },
+      
+      book: function(){
+        alert("You have booked a " + this.flightItem.textContent.trim() + " on " + this.startDate 
+            + ((this.flightType==1) ? (" returning on " + this.returnDate) : ""))
       },
       
       validate: function(){
